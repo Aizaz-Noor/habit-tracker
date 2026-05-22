@@ -7,7 +7,24 @@ export function loadData(): AppData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { habits: [], completions: {} };
-    return JSON.parse(raw) as AppData;
+    const parsed = JSON.parse(raw) as AppData;
+    
+    // Sanitize and capitalize habit names
+    if (parsed && Array.isArray(parsed.habits)) {
+      parsed.habits = parsed.habits.map((h) => {
+        let name = h.name.trim();
+        // Fix spelling
+        if (name.toLowerCase() === 'meditiate') {
+          name = 'Meditate';
+        }
+        // Capitalize first letter
+        if (name.length > 0) {
+          name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        return { ...h, name };
+      });
+    }
+    return parsed;
   } catch {
     // If parsing fails, start fresh
     return { habits: [], completions: {} };

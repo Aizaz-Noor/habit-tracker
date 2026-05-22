@@ -326,19 +326,53 @@ body {
   text-transform: uppercase;
 }
 
-/* "This Week" jump button */
-.btn-this-week {
+.week-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* "This Week" navigation button style */
+.btn-this-week-nav {
   background: var(--primary-subtle);
   color: var(--primary-2);
   border: 1px solid rgba(124, 92, 252, 0.25);
-  font-size: 0.78rem;
-  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
   border-radius: var(--r-md);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background var(--t-base) var(--ease-out-quint),
+    color var(--t-base),
+    box-shadow var(--t-base),
+    transform var(--t-fast) var(--ease-spring),
+    opacity var(--t-base);
+  user-select: none;
 }
 
-.btn-this-week:hover {
+.btn-this-week-nav:hover:not(:disabled) {
   background: rgba(124, 92, 252, 0.2);
   border-color: rgba(124, 92, 252, 0.4);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.btn-this-week-nav:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn-this-week-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--glass);
+  border-color: var(--border);
+  color: var(--text-3);
+  box-shadow: none;
 }
 
 /* Save / Cancel small */
@@ -591,6 +625,7 @@ body {
   white-space: nowrap;
   position: relative;
   transition: background var(--t-base);
+  width: 54px;
 }
 
 .day-header.today {
@@ -1058,6 +1093,11 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
+  }
+
+  .week-nav-controls {
+    width: 100%;
+    justify-content: center;
   }
 
   .week-label {

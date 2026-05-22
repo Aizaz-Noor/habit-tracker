@@ -61,8 +61,16 @@ export default function App() {
       setAddError('Please enter a habit name.');
       return;
     }
+
+    // Capitalize first letter
+    let formattedName = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+    // Fix spelling
+    if (formattedName.toLowerCase() === 'meditiate') {
+      formattedName = 'Meditate';
+    }
+
     const duplicate = data.habits.some(
-      (h) => h.name.toLowerCase() === trimmed.toLowerCase()
+      (h) => h.name.toLowerCase() === formattedName.toLowerCase()
     );
     if (duplicate) {
       setAddError('A habit with that name already exists.');
@@ -70,7 +78,7 @@ export default function App() {
     }
     const habit: Habit = {
       id: generateId(),
-      name: trimmed,
+      name: formattedName,
       createdAt: today,
     };
     update((prev) => ({
@@ -99,10 +107,18 @@ export default function App() {
   function commitEdit(id: string) {
     const trimmed = editName.trim();
     if (!trimmed) return;
+
+    // Capitalize first letter
+    let formattedName = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+    // Fix spelling
+    if (formattedName.toLowerCase() === 'meditiate') {
+      formattedName = 'Meditate';
+    }
+
     update((prev) => ({
       ...prev,
       habits: prev.habits.map((h) =>
-        h.id === id ? { ...h, name: trimmed } : h
+        h.id === id ? { ...h, name: formattedName } : h
       ),
     }));
     setEditingId(null);
@@ -170,6 +186,13 @@ export default function App() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  // Clear validation error when user starts typing
+  useEffect(() => {
+    if (newName) {
+      setAddError('');
+    }
+  }, [newName]);
 
   // ── Weekly completion % per habit ──────────────────────────────────────
   function weeklyProgress(habitId: string): number {
@@ -248,14 +271,34 @@ export default function App() {
 
         {/* ── Week Navigation ───────────────────────────────────────────── */}
         <nav className="week-nav" aria-label="Week navigation">
-          <button
-            className="btn btn-nav"
-            onClick={goToPrevWeek}
-            aria-label="Go to previous week"
-          >
-            <span className="nav-arrow">←</span>
-            <span className="nav-label">Prev</span>
-          </button>
+          <div className="week-nav-controls">
+            <button
+              className="btn btn-nav"
+              onClick={goToPrevWeek}
+              aria-label="Go to previous week"
+            >
+              <span className="nav-arrow">←</span>
+              <span className="nav-label">Prev</span>
+            </button>
+
+            <button
+              className="btn btn-this-week-nav"
+              onClick={goToThisWeek}
+              disabled={isCurrentWeek}
+              aria-label="Return to current week"
+            >
+              ⌂ This Week
+            </button>
+
+            <button
+              className="btn btn-nav"
+              onClick={goToNextWeek}
+              aria-label="Go to next week"
+            >
+              <span className="nav-label">Next</span>
+              <span className="nav-arrow">→</span>
+            </button>
+          </div>
 
           <div className="week-label-group">
             <span className="week-label">
@@ -264,25 +307,7 @@ export default function App() {
               )}
               {weekLabel(weekDays)}
             </span>
-            {!isCurrentWeek && (
-              <button
-                className="btn btn-this-week"
-                onClick={goToThisWeek}
-                aria-label="Return to current week"
-              >
-                ⌂ This Week
-              </button>
-            )}
           </div>
-
-          <button
-            className="btn btn-nav"
-            onClick={goToNextWeek}
-            aria-label="Go to next week"
-          >
-            <span className="nav-label">Next</span>
-            <span className="nav-arrow">→</span>
-          </button>
         </nav>
 
         {/* ── Habit Grid or Empty State ──────────────────────────────────── */}
@@ -492,7 +517,7 @@ function EmptyState() {
       </div>
       <h2 className="empty-title">No habits yet</h2>
       <p className="empty-desc">
-        Add your first habit above and start building your streak today.
+        No habits yet. Add your first habit to start building consistency.
       </p>
       <div className="empty-arrow" aria-hidden="true">↑</div>
     </div>
