@@ -187,12 +187,6 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // Clear validation error when user starts typing
-  useEffect(() => {
-    if (newName) {
-      setAddError('');
-    }
-  }, [newName]);
 
   // ── Weekly completion % per habit ──────────────────────────────────────
   function weeklyProgress(habitId: string): number {
