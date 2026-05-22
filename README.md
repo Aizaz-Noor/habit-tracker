@@ -22,7 +22,7 @@ npm run build
 
 ## Deployed URL
 
-**Not deployed yet** — add your live URL here after deploying.
+**Live App URL:** [https://habit-tracker-lh2kdzpze-aizaz-noors-projects.vercel.app](https://habit-tracker-lh2kdzpze-aizaz-noors-projects.vercel.app)
 
 ## What it does
 

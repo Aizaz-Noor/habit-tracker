@@ -26,7 +26,7 @@ npm run build
 # output lands in dist/ — deploy to Vercel, Netlify, or any static host
 ```
 
-**Deployed URL:** _Not deployed yet — add your URL here after running `npm run build` and uploading to Vercel/Netlify._
+**Deployed URL:** [https://habit-tracker-lh2kdzpze-aizaz-noors-projects.vercel.app](https://habit-tracker-lh2kdzpze-aizaz-noors-projects.vercel.app)
 
 ---
 
