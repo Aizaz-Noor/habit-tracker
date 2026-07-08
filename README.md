@@ -1,10 +1,10 @@
 # Weekly Habit Tracker
 
-A single-page habit tracker. Add daily habits, check them off on a weekly grid, watch streaks build over time. No account, no server — data lives in your browser.
+A single-page habit tracker. Add daily habits, check them off on a weekly grid, watch streaks build over time. No account, no server data lives in your browser.
 
 ## Run locally
 
-> **Requires Node.js 18+** — check with `node -v`
+> **Requires Node.js 18+**  check with `node -v`
 
 ```bash
 npm install
@@ -17,7 +17,7 @@ Open **[http://localhost:5173](http://localhost:5173)**.
 
 ```bash
 npm run build
-# static files land in dist/ — deploy to Vercel, Netlify, or any static host
+# static files land in dist/  deploy to Vercel, Netlify, or any static host
 ```
 
 ## Deployed URL
